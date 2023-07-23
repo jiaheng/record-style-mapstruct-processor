@@ -44,7 +44,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/jiaheng/record-style-mapper-processor</url>
+            <url>https://maven.pkg.github.com/jiaheng/record-style-mapstruct-processor</url>
         </repository>
     </distributionManagement>
 
