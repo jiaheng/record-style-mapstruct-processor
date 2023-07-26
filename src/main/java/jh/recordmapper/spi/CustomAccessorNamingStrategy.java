@@ -25,7 +25,7 @@ public class CustomAccessorNamingStrategy extends DefaultAccessorNamingStrategy 
     public String getPropertyName(ExecutableElement getterOrSetterMethod) {
         if (isRecordStyleGetterName(getterOrSetterMethod)) {
             String methodName = getterOrSetterMethod.getSimpleName().toString();
-            LOG.finest(
+            LOG.info(
                     () ->
                             "mapping getter "
                                     + methodName
