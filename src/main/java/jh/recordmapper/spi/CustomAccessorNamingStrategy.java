@@ -3,13 +3,15 @@ package jh.recordmapper.spi;
 import org.mapstruct.ap.spi.DefaultAccessorNamingStrategy;
 import org.mapstruct.ap.spi.util.IntrospectorUtils;
 
+import java.util.logging.Logger;
+
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.TypeKind;
-import java.util.logging.Logger;
 
 public class CustomAccessorNamingStrategy extends DefaultAccessorNamingStrategy {
 
-    private static final Logger LOG = Logger.getLogger(CustomAccessorNamingStrategy.class.getName());
+    private static final Logger LOG =
+            Logger.getLogger(CustomAccessorNamingStrategy.class.getName());
 
     @Override
     public boolean isGetterMethod(ExecutableElement method) {
@@ -24,8 +26,8 @@ public class CustomAccessorNamingStrategy extends DefaultAccessorNamingStrategy 
             return IntrospectorUtils.decapitalize(methodName);
         }
         return super.getPropertyName(getterOrSetterMethod);
-//        String methodName = getterOrSetterMethod.getSimpleName().toString();
-//        return Introspector.decapitalize(methodName);
+        //        String methodName = getterOrSetterMethod.getSimpleName().toString();
+        //        return Introspector.decapitalize(methodName);
     }
 
     private boolean isRecordStyleGetterName(ExecutableElement method) {
@@ -35,12 +37,15 @@ public class CustomAccessorNamingStrategy extends DefaultAccessorNamingStrategy 
         }
         String methodName = method.getSimpleName().toString();
 
-        boolean isNonBooleanGetterName = methodName.startsWith("get") && methodName.length() > 3 &&
-                method.getReturnType().getKind() != TypeKind.VOID;
+        boolean isNonBooleanGetterName =
+                methodName.startsWith("get")
+                        && methodName.length() > 3
+                        && method.getReturnType().getKind() != TypeKind.VOID;
 
         boolean isBooleanGetterName = methodName.startsWith("is") && methodName.length() > 2;
-        boolean returnTypeIsBoolean = method.getReturnType().getKind() == TypeKind.BOOLEAN ||
-                "java.lang.Boolean".equals(getQualifiedName(method.getReturnType()));
+        boolean returnTypeIsBoolean =
+                method.getReturnType().getKind() == TypeKind.BOOLEAN
+                        || "java.lang.Boolean".equals(getQualifiedName(method.getReturnType()));
 
         return !isNonBooleanGetterName && !(isBooleanGetterName && returnTypeIsBoolean);
     }

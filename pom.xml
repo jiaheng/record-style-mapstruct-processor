@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+        <spotless.version>2.36.0</spotless.version>
     </properties>
 
     <dependencies>
@@ -35,6 +36,51 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${spotless.version}</version>
+                    <configuration>
+                        <formats>
+                            <format>
+                                <includes>
+                                    <include>*.md</include>
+                                    <include>pom.xml</include>
+                                </includes>
+                                <indent>
+                                    <spaces>true</spaces>
+                                    <spacesPerTab>4</spacesPerTab>
+                                </indent>
+                                <endWithNewline/>
+                                <trimTrailingWhitespace/>
+                            </format>
+                        </formats>
+                        <java>
+                            <googleJavaFormat>
+                                <version>1.17.0</version>
+                                <style>AOSP</style>
+                                <reflowLongStrings>true</reflowLongStrings>
+                            </googleJavaFormat>
+                        </java>
+                        <groovy>
+                            <includes>
+                                <include>src/test/groovy/**/*.groovy</include>
+                            </includes>
+                            <importOrder />
+                        </groovy>
+                        <pom>
+                            <sortPom/>
+                        </pom>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <phase>compile</phase>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
