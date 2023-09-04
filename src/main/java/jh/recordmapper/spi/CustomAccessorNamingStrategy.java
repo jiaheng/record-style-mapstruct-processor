@@ -46,6 +46,7 @@ public class CustomAccessorNamingStrategy extends DefaultAccessorNamingStrategy 
 
         if (!method.getParameters().isEmpty()
                 || method.getReturnType().getKind() == TypeKind.VOID) {
+            // add some comment for testing
             return false;
         }
 
